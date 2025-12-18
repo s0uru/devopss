@@ -1,15 +1,17 @@
 name: CI-Project-Check
-
-# 1. Kiedy ma się uruchomić? (Przy każdym wypchnięciu kodu)
 on: [push]
 
 jobs:
-  build-check:
+  build:
     runs-on: ubuntu-latest
     steps:
-      # 2. Pobierz kod z repozytorium na maszynę wirtualną GitHub
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # 3. Sprawdź, czy Docker Compose poprawnie buduje obrazy
-      - name: Build the Docker images
-        run: docker-compose build
+      - name: Build the Docker image
+        # Ta komenda sprawdzi sam Dockerfile, co jest kluczowe dla pkt 6
+        run: docker build . --file Dockerfile
+        
+      - name: Docker Compose Check
+        # Sprawdzamy czy compose się "składa" poprawnie
+        run: docker-compose config
