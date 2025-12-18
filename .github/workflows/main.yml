@@ -6,15 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build Docker Image
-        run: |
-          docker build -t moja-aplikacja:test .
-          
-      - name: Verify Docker Compose
-        run: |
-          docker-compose config
+      - name: Build and verify with Docker Compose
+        # Ta jedna komenda sprawdzi czy Dockerfile buduje się poprawnie 
+        # oraz czy plik docker-compose.yml jest dobrze sformatowany.
+        run: docker compose build
