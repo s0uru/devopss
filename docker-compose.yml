@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  web-strona:
+    build: .
+    ports:
+      - "80:80"
+  baza-redis:
+    image: redis:alpine
